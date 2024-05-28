@@ -4,11 +4,13 @@ import design.patterns.adapter.AdapterMain;
 import design.patterns.command.CommandMain;
 import design.patterns.decorator.DecoratorMain;
 import design.patterns.momento.MomentoMain;
+import design.patterns.smarthomeautomation.SmartHomeAutomationMain;
 import design.patterns.state.StateMain;
 import design.patterns.strategy.StrategyMain;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 
 @Slf4j
 @SpringBootApplication
@@ -28,6 +30,7 @@ public class PatternsApplication {
 		StateMain.main();
 		log.info("\nStrategy Pattern");
 		StrategyMain.main();
+		SmartHomeAutomationMain.main();
 	}
 /*
 Output
