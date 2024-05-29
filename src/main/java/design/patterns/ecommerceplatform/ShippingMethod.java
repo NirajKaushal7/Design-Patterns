@@ -1,5 +1,5 @@
 package design.patterns.ecommerceplatform;
 
 public interface ShippingMethod {
-    void calculate();
+    double calculate(double weight, double distance);
 }
