@@ -4,6 +4,7 @@ class ResizeCommand implements CostlyCommand {
     private String image;
     private int width;
     private int height;
+    private long cost = 10;
 
     public ResizeCommand(String image, int width, int height) {
         this.image = image;
@@ -18,6 +19,6 @@ class ResizeCommand implements CostlyCommand {
 
     @Override
     public double getCost() {
-        return 5.0;
+        return cost;
     }
 }

@@ -1,7 +1,6 @@
 package design.patterns.assignment2;
 
-import design.patterns.assignment2.additional.PaymentProcessor;
-import design.patterns.assignment2.additional.SimplePaymentProcessor;
+import design.patterns.assignment2.additional.PaymentContext;
 import design.patterns.assignment2.command.CommandFactory;
 import design.patterns.assignment2.command.CompositeCommand;
 import design.patterns.assignment2.command.CostlyCommand;
@@ -15,6 +14,7 @@ public class ImageProcessingCliApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         CommandFactory commandFactory = new CommandFactory();
+        PaymentContext paymentContext = new PaymentContext();
         OperationMonitor monitor = new OperationMonitor();
         UserConsoleObserver observer = new UserConsoleObserver();
         monitor.attach(observer);
@@ -58,9 +58,13 @@ public class ImageProcessingCliApp {
                         String direction = scanner.nextLine();
                         System.out.print("Enter pixels: ");
                         int pixels = Integer.parseInt(scanner.nextLine().trim());
+                        System.out.print("Select Service Provider such as WEBP, EPS, TIFF : ");
+                        String serviceProvider = scanner.nextLine();
+//                      commandArgs = new String[]{extendImage, direction, String.valueOf(pixels), serviceProvider};// 1 st way
+                        commandFactory.setServiceProvider(serviceProvider);
                         commandArgs = new String[]{extendImage, direction, String.valueOf(pixels)};
                         command = commandFactory.createCommand("extend", commandArgs);
-                        monitor.notifyObservers("Extending image using AI");
+                        monitor.notifyObservers("Extending image using AI using Provider " + commandFactory.getServiceProvider());
                         break;
                     case 3:
                         System.out.print("Enter image name: ");
@@ -80,9 +84,13 @@ public class ImageProcessingCliApp {
                     case 4:
                         System.out.print("Enter image name: ");
                         String removeBgImage = scanner.nextLine();
+                        System.out.print("Select service provider such as FixPhoto, PicsRetouch, Pixelz : ");
+                        String removeBgServiceProvider = scanner.nextLine();
+//                      commandArgs = new String[]{removeBgImage, removeBgServiceProvider}; // 1 st way
+                        commandFactory.setServiceProvider(removeBgServiceProvider);
                         commandArgs = new String[]{removeBgImage};
                         command = commandFactory.createCommand("remove-bg", commandArgs);
-                        monitor.notifyObservers("Removing background from image");
+                        monitor.notifyObservers("Removing background from image using Service Provider " +  commandFactory.getServiceProvider());
                         break;
                     case 5:
                         System.out.print("Enter image name: ");
@@ -159,8 +167,10 @@ public class ImageProcessingCliApp {
                 }
 
                 if (totalCost > 0) {
-                    PaymentProcessor paymentProcessor = new SimplePaymentProcessor();
-                    paymentProcessor.processPayment(totalCost);
+                    System.out.print("Select Payment Processor such as Paytm, PhonePay and Simple : ");
+                    String paymentType = scanner.nextLine();
+                    paymentContext.setPaymentProcessor(paymentType);
+                    paymentContext.processPayment(totalCost);
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Invalid number format. Please enter a valid number.");

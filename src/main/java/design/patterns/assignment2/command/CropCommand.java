@@ -1,6 +1,6 @@
 package design.patterns.assignment2.command;
 
-class CropCommand implements Command {
+class CropCommand implements CostlyCommand {
     private String image;
     private int top;
     private int right;
@@ -19,5 +19,9 @@ class CropCommand implements Command {
     @Override
     public void execute() {
         System.out.println("Cropping image " + image + " with top " + top + ", right " + right + ", bottom " + bottom + ", left " + left);
+    }
+    @Override
+    public double getCost() {
+        return cost;
     }
 }
